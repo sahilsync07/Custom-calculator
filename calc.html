@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Custom Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #2E3192, #1BFFFF);
+            text-align: center;
+            padding: 20px;
+            color: #333;
+        }
+
+        .shop-header {
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+            background: #1E3A8A;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 15px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        input,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input {
+            background: #f3f3f3;
+        }
+
+        button {
+            background: #2563EB;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #1E40AF;
+        }
+
+        .result {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: white;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="shop-header">M/S Shree Brundabana Enterprises, Rayagada, Odisha</div>
+
+    <div class="container">
+        <h2>Price Calculation</h2>
+        <label>MRP:</label> <input type="number" id="mrp" /><br>
+        <label>Rate (Cost Price):</label> <input type="number" id="rate" /><br>
+        <label>GST (%):</label> <input type="number" id="gst" /><br>
+        <label>Transport Cost:</label> <input type="number" id="transport" /><br>
+        <label>Profit Margin (%):</label> <input type="number" id="profit" /><br>
+        <button onclick="calculatePrice()">Calculate</button>
+
+        <div class="result">
+            <p>Final Selling Price: <span id="finalPrice"></span></p>
+            <p>Percentage of SP wrt MRP: <span id="percentage"></span>%</p>
+            <p>Discount from MRP: <span id="discount"></span>%</p>
+        </div>
+    </div>
+
+    <div class="footer">Built by Sahil Kumar</div>
+
+    <script>
+        function calculatePrice() {
+            let mrp = parseFloat(document.getElementById('mrp').value);
+            let rate = parseFloat(document.getElementById('rate').value);
+            let gst = parseFloat(document.getElementById('gst').value);
+            let transport = parseFloat(document.getElementById('transport').value);
+            let profit = parseFloat(document.getElementById('profit').value);
+
+            let baseCost = rate + transport;
+            let gstAmount = (baseCost * gst) / 100;
+            let costAfterGst = baseCost + gstAmount;
+            let profitAmount = (costAfterGst * profit) / 100;
+            let finalPrice = costAfterGst + profitAmount;
+            let percentage = (finalPrice / mrp) * 100;
+            let discount = 100 - percentage;
+
+            document.getElementById('finalPrice').innerText = finalPrice.toFixed(2);
+            document.getElementById('percentage').innerText = percentage.toFixed(2);
+            document.getElementById('discount').innerText = discount.toFixed(2);
+        }
+    </script>
+</body>
+
+</html>
